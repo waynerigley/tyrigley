@@ -765,6 +765,23 @@
             font-weight: 500;
         }
 
+        .admin-link {
+            display: inline-block;
+            margin-top: 12px;
+            color: #475569;
+            text-decoration: none;
+            font-size: 0.75rem;
+            padding: 6px 14px;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .admin-link:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
         /* Full Page Login Overlay */
         .login-overlay {
             position: fixed;
@@ -1180,6 +1197,7 @@
 
             <div class="footer">
                 <p>tyrigley.com</p>
+                <a href="admin.html" class="admin-link">Admin</a>
             </div>
         </div>
     </div>
