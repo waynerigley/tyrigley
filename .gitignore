@@ -1,0 +1,15 @@
+# OS files
+.DS_Store
+Thumbs.db
+*:Zone.Identifier
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Local development
+.env
+.env.local

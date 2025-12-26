@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ty Rigley - Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #3b82f6;
+            --accent-dark: #2563eb;
+            --secondary: #94a3b8;
+            --success: #10b981;
+            --success-light: #064e3b;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --danger-light: #7f1d1d;
+            --light: #1e293b;
+            --dark: #f1f5f9;
+            --border: #334155;
+            --card-bg: #0f172a;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #030712;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+            color: var(--dark);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: var(--secondary);
+            margin-bottom: 24px;
+        }
+
+        /* Login */
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #030712;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .login-overlay.hidden {
+            display: none;
+        }
+
+        .login-box {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 380px;
+            width: 90%;
+            border: 1px solid var(--border);
+        }
+
+        .login-box h1 {
+            margin-bottom: 8px;
+        }
+
+        .login-box .subtitle {
+            margin-bottom: 24px;
+        }
+
+        .password-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .password-input {
+            padding: 14px 18px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            background: var(--primary-light);
+            color: var(--dark);
+            text-align: center;
+        }
+
+        .password-input:focus {
+            border-color: var(--accent);
+        }
+
+        .btn {
+            padding: 14px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dark);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-small {
+            padding: 8px 14px;
+            font-size: 0.8rem;
+        }
+
+        .error-message {
+            color: var(--danger);
+            margin-top: 12px;
+            display: none;
+        }
+
+        /* Main content */
+        .main-content {
+            display: none;
+        }
+
+        .main-content.visible {
+            display: block;
+        }
+
+        /* Header */
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .back-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Calendar Navigation */
+        .calendar-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .cal-nav-btn {
+            background: var(--primary-light);
+            border: 1px solid var(--border);
+            color: var(--dark);
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .cal-nav-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .week-label {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        /* Schedule Grid */
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: 60px repeat(7, 1fr);
+            gap: 3px;
+            background: var(--primary-light);
+            border-radius: 12px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            overflow-x: auto;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .schedule-header {
+            text-align: center;
+            padding: 10px 4px;
+            font-weight: 600;
+            font-size: 0.7rem;
+            color: var(--secondary);
+            position: sticky;
+            top: 0;
+            background: var(--primary-light);
+            z-index: 10;
+        }
+
+        .schedule-header.day-header {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .schedule-header .day-name {
+            font-size: 0.65rem;
+        }
+
+        .schedule-header .day-num {
+            font-size: 0.95rem;
+            color: var(--dark);
+        }
+
+        .time-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: var(--secondary);
+            font-weight: 500;
+        }
+
+        .time-slot {
+            background: var(--primary);
+            border-radius: 6px;
+            padding: 6px 2px;
+            text-align: center;
+            font-size: 0.6rem;
+            cursor: pointer;
+            transition: all 0.15s;
+            min-height: 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid transparent;
+        }
+
+        .time-slot.available {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .time-slot.available:hover {
+            background: rgba(16, 185, 129, 0.35);
+            transform: scale(1.02);
+        }
+
+        .time-slot.booked {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--accent);
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+
+        .time-slot.booked:hover {
+            background: rgba(59, 130, 246, 0.35);
+        }
+
+        .time-slot.blocked {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .time-slot.blocked:hover {
+            background: rgba(239, 68, 68, 0.35);
+        }
+
+        /* Color-coded block reasons */
+        .time-slot.blocked-school {
+            background: rgba(139, 92, 246, 0.2);
+            color: #a78bfa;
+            border-color: rgba(139, 92, 246, 0.4);
+        }
+        .time-slot.blocked-school:hover {
+            background: rgba(139, 92, 246, 0.35);
+        }
+
+        .time-slot.blocked-homework {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+            border-color: rgba(245, 158, 11, 0.4);
+        }
+        .time-slot.blocked-homework:hover {
+            background: rgba(245, 158, 11, 0.35);
+        }
+
+        .time-slot.blocked-family {
+            background: rgba(236, 72, 153, 0.2);
+            color: #f472b6;
+            border-color: rgba(236, 72, 153, 0.4);
+        }
+        .time-slot.blocked-family:hover {
+            background: rgba(236, 72, 153, 0.35);
+        }
+
+        .time-slot.blocked-sports {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+            border-color: rgba(34, 197, 94, 0.4);
+        }
+        .time-slot.blocked-sports:hover {
+            background: rgba(34, 197, 94, 0.35);
+        }
+
+        .time-slot.blocked-other {
+            background: rgba(100, 116, 139, 0.2);
+            color: #94a3b8;
+            border-color: rgba(100, 116, 139, 0.4);
+        }
+        .time-slot.blocked-other:hover {
+            background: rgba(100, 116, 139, 0.35);
+        }
+
+        .time-slot.past {
+            opacity: 0.3;
+            cursor: default;
+        }
+
+        .time-slot.past:hover {
+            transform: none;
+        }
+
+        .slot-status {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            font-size: 0.55rem;
+        }
+
+        .slot-detail {
+            font-size: 0.5rem;
+            opacity: 0.8;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Legend */
+        .schedule-legend {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: var(--secondary);
+        }
+
+        .legend-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 4px;
+        }
+
+        .legend-dot.available {
+            background: rgba(16, 185, 129, 0.3);
+            border: 2px solid var(--success);
+        }
+
+        .legend-dot.booked {
+            background: rgba(59, 130, 246, 0.3);
+            border: 2px solid var(--accent);
+        }
+
+        .legend-dot.blocked {
+            background: rgba(239, 68, 68, 0.3);
+            border: 2px solid var(--danger);
+        }
+
+        .legend-dot.school {
+            background: rgba(139, 92, 246, 0.3);
+            border: 2px solid #a78bfa;
+        }
+
+        .legend-dot.homework {
+            background: rgba(245, 158, 11, 0.3);
+            border: 2px solid #fbbf24;
+        }
+
+        .legend-dot.family {
+            background: rgba(236, 72, 153, 0.3);
+            border: 2px solid #f472b6;
+        }
+
+        .legend-dot.sports {
+            background: rgba(34, 197, 94, 0.3);
+            border: 2px solid #4ade80;
+        }
+
+        .legend-dot.other {
+            background: rgba(100, 116, 139, 0.3);
+            border: 2px solid #94a3b8;
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10001;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 28px;
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+            border: 1px solid var(--border);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--primary-light);
+            border: none;
+            color: var(--secondary);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .modal-close:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 16px;
+        }
+
+        .modal-slot-info {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--secondary);
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 14px;
+            background: var(--primary-light);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            color: var(--dark);
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-actions .btn {
+            flex: 1;
+        }
+
+        /* Booking details */
+        .booking-details {
+            background: var(--primary-light);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .booking-details p {
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .booking-details strong {
+            color: var(--secondary);
+        }
+
+        /* Instructions */
+        .instructions {
+            background: var(--primary-light);
+            border-radius: 10px;
+            padding: 16px;
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: var(--secondary);
+        }
+
+        .instructions h4 {
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .instructions ul {
+            margin-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 4px;
+        }
+
+        @media (max-width: 600px) {
+            .schedule-grid {
+                font-size: 0.65rem;
+            }
+
+            .time-slot {
+                min-height: 50px;
+                padding: 4px 2px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Overlay -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-box">
+            <h1>Admin Access</h1>
+            <p class="subtitle">Enter admin password to manage schedule</p>
+            <div class="password-form">
+                <input type="password" class="password-input" id="passwordInput" placeholder="Enter admin password">
+                <button class="btn btn-primary" onclick="unlockPage()">Access Dashboard</button>
+            </div>
+            <p class="error-message" id="errorMessage">Incorrect password</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <div class="container">
+            <div class="card">
+                <div class="admin-header">
+                    <div>
+                        <h1>Schedule Manager</h1>
+                        <p class="subtitle">Block times, view bookings, manage your availability</p>
+                    </div>
+                    <a href="index.html" class="back-link">&larr; Back to Profile</a>
+                </div>
+
+                <div class="calendar-nav-header">
+                    <button class="cal-nav-btn" onclick="previousWeek()">&lsaquo; Previous</button>
+                    <span id="weekLabel" class="week-label">Dec 23 - Dec 29, 2025</span>
+                    <button class="cal-nav-btn" onclick="nextWeek()">Next &rsaquo;</button>
+                </div>
+
+                <div class="schedule-grid" id="scheduleGrid">
+                    <!-- Calendar will be generated by JavaScript -->
+                </div>
+
+                <div class="schedule-legend">
+                    <div class="legend-item"><span class="legend-dot available"></span> Available</div>
+                    <div class="legend-item"><span class="legend-dot booked"></span> Booked</div>
+                    <div class="legend-item"><span class="legend-dot blocked"></span> Unavailable</div>
+                    <div class="legend-item"><span class="legend-dot school"></span> School</div>
+                    <div class="legend-item"><span class="legend-dot homework"></span> Homework</div>
+                    <div class="legend-item"><span class="legend-dot family"></span> Family</div>
+                    <div class="legend-item"><span class="legend-dot sports"></span> Sports</div>
+                    <div class="legend-item"><span class="legend-dot other"></span> Other</div>
+                </div>
+
+                <div class="instructions">
+                    <h4>How to use:</h4>
+                    <ul>
+                        <li><strong>Block time:</strong> Click any green "Available" slot to block it for school, homework, etc.</li>
+                        <li><strong>Unblock time:</strong> Click any red "Blocked" slot to make it available again</li>
+                        <li><strong>View booking:</strong> Click any blue "Booked" slot to see who booked it</li>
+                        <li><strong>Cancel booking:</strong> Open a booking and click "Cancel Booking" if needed</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Block Modal -->
+    <div class="modal" id="blockModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('blockModal')">&times;</button>
+            <h3>Block This Time</h3>
+            <p id="blockModalSlotInfo" class="modal-slot-info"></p>
+            <div class="form-group">
+                <label>Reason (optional)</label>
+                <select id="blockReason">
+                    <option value="Unavailable">Unavailable</option>
+                    <option value="School">School</option>
+                    <option value="Homework">Homework</option>
+                    <option value="Family">Family Time</option>
+                    <option value="Sports">Sports/Activities</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-danger" onclick="confirmBlock()">Block Time</button>
+                <button class="btn" style="background: var(--primary-light);" onclick="closeModal('blockModal')">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Unblock Modal -->
+    <div class="modal" id="unblockModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('unblockModal')">&times;</button>
+            <h3>Unblock This Time?</h3>
+            <p id="unblockModalSlotInfo" class="modal-slot-info"></p>
+            <p style="color: var(--secondary); margin-bottom: 20px;">This will make the slot available for employers to book.</p>
+            <div class="modal-actions">
+                <button class="btn btn-success" onclick="confirmUnblock()">Make Available</button>
+                <button class="btn" style="background: var(--primary-light);" onclick="closeModal('unblockModal')">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Details Modal -->
+    <div class="modal" id="bookingModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('bookingModal')">&times;</button>
+            <h3>Booking Details</h3>
+            <p id="bookingModalSlotInfo" class="modal-slot-info"></p>
+            <div class="booking-details" id="bookingDetails">
+                <!-- Filled by JavaScript -->
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-danger" onclick="confirmCancelBooking()">Cancel Booking</button>
+                <button class="btn" style="background: var(--primary-light);" onclick="closeModal('bookingModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <script>
+        // ============================================
+        // CONFIGURATION
+        // ============================================
+        const ADMIN_PASSWORD = 'tyadmin2025'; // Change this!
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCg_vuhhW9TlxA84uKOv2mpfuZNdfKLWCk",
+            authDomain: "tyrigley-83566.firebaseapp.com",
+            projectId: "tyrigley-83566",
+            storageBucket: "tyrigley-83566.firebasestorage.app",
+            messagingSenderId: "940995424988",
+            appId: "1:940995424988:web:e235ea793882d7ebb9ba19"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // ============================================
+        // STATE
+        // ============================================
+        let currentWeekStart = getMonday(new Date());
+        let selectedSlot = null;
+
+        // Hourly slots from 7am to 10pm
+        const TIME_SLOTS = [];
+        for (let hour = 7; hour <= 21; hour++) {
+            const label = hour < 12 ? `${hour}AM` : hour === 12 ? '12PM' : `${hour-12}PM`;
+            TIME_SLOTS.push({ label, hour });
+        }
+
+        function getMonday(date) {
+            const d = new Date(date);
+            const day = d.getDay();
+            const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+            d.setDate(diff);
+            d.setHours(0, 0, 0, 0);
+            return d;
+        }
+
+        // ============================================
+        // LOGIN
+        // ============================================
+        function unlockPage() {
+            const input = document.getElementById('passwordInput');
+            const error = document.getElementById('errorMessage');
+
+            if (input.value === ADMIN_PASSWORD) {
+                document.getElementById('loginOverlay').classList.add('hidden');
+                document.getElementById('mainContent').classList.add('visible');
+                renderSchedule();
+            } else {
+                error.style.display = 'block';
+                input.value = '';
+                input.focus();
+            }
+        }
+
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') unlockPage();
+        });
+
+        // ============================================
+        // SCHEDULE
+        // ============================================
+        function formatDate(date) {
+            return date.toISOString().split('T')[0];
+        }
+
+        function formatDateDisplay(date) {
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            return `${months[date.getMonth()]} ${date.getDate()}`;
+        }
+
+        function formatFullDate(dateStr) {
+            const date = new Date(dateStr);
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            return `${days[date.getDay()]}, ${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+        }
+
+        function getWeekDates() {
+            const dates = [];
+            for (let i = 0; i < 7; i++) {
+                const date = new Date(currentWeekStart);
+                date.setDate(date.getDate() + i);
+                dates.push(date);
+            }
+            return dates;
+        }
+
+        function previousWeek() {
+            currentWeekStart.setDate(currentWeekStart.getDate() - 7);
+            renderSchedule();
+        }
+
+        function nextWeek() {
+            currentWeekStart.setDate(currentWeekStart.getDate() + 7);
+            renderSchedule();
+        }
+
+        function getReasonClass(reason) {
+            const reasonMap = {
+                'School': 'blocked-school',
+                'Homework': 'blocked-homework',
+                'Family': 'blocked-family',
+                'Family Time': 'blocked-family',
+                'Sports': 'blocked-sports',
+                'Sports/Activities': 'blocked-sports',
+                'Other': 'blocked-other'
+            };
+            return reasonMap[reason] || '';
+        }
+
+        async function renderSchedule() {
+            const grid = document.getElementById('scheduleGrid');
+            const weekLabel = document.getElementById('weekLabel');
+            const dates = getWeekDates();
+
+            const endDate = new Date(dates[6]);
+            weekLabel.textContent = `${formatDateDisplay(dates[0])} - ${formatDateDisplay(endDate)}, ${dates[0].getFullYear()}`;
+
+            // Fetch slots
+            const startStr = formatDate(dates[0]);
+            const endStr = formatDate(dates[6]);
+
+            let slots = {};
+            try {
+                const snapshot = await db.collection('slots')
+                    .where('date', '>=', startStr)
+                    .where('date', '<=', endStr)
+                    .get();
+
+                snapshot.forEach(doc => {
+                    slots[doc.id] = doc.data();
+                });
+            } catch (error) {
+                console.error('Error fetching slots:', error);
+            }
+
+            const dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            let html = '<div class="schedule-header"></div>';
+
+            dates.forEach((date, i) => {
+                html += `
+                    <div class="schedule-header day-header">
+                        <span class="day-name">${dayNames[i]}</span>
+                        <span class="day-num">${date.getDate()}</span>
+                    </div>
+                `;
+            });
+
+            const now = new Date();
+            TIME_SLOTS.forEach(slot => {
+                html += `<div class="time-label">${slot.label}</div>`;
+
+                dates.forEach(date => {
+                    const dateStr = formatDate(date);
+                    const slotId = `${dateStr}-${slot.hour}`;
+                    const slotData = slots[slotId];
+
+                    const slotTime = new Date(date);
+                    slotTime.setHours(slot.hour, 0, 0, 0);
+                    const isPast = slotTime < now;
+
+                    let status = 'available';
+                    let statusText = '';
+                    let detailText = '';
+                    let onclick = '';
+
+                    if (isPast) {
+                        status = 'past';
+                        statusText = '-';
+                    } else if (slotData) {
+                        if (slotData.status === 'booked') {
+                            status = 'booked';
+                            statusText = 'Booked';
+                            // Handle both string and object format for bookedBy
+                            detailText = typeof slotData.bookedBy === 'string'
+                                ? slotData.bookedBy
+                                : (slotData.bookedBy?.name || '');
+                            onclick = `onclick="showBookingDetails('${dateStr}', ${slot.hour}, '${slot.label}')"`;
+                        } else if (slotData.status === 'blocked') {
+                            const reason = slotData.reason || 'Unavailable';
+                            statusText = reason;
+                            // Apply color-coded class based on reason
+                            const reasonClass = getReasonClass(reason);
+                            status = reasonClass ? `blocked ${reasonClass}` : 'blocked';
+                            onclick = `onclick="showUnblockModal('${dateStr}', ${slot.hour}, '${slot.label}')"`;
+                        }
+                    } else {
+                        statusText = 'Open';
+                        onclick = `onclick="showBlockModal('${dateStr}', ${slot.hour}, '${slot.label}')"`;
+                    }
+
+                    html += `
+                        <div class="time-slot ${status}" ${onclick}>
+                            <span class="slot-status">${statusText}</span>
+                            ${detailText ? `<span class="slot-detail">${detailText}</span>` : ''}
+                        </div>
+                    `;
+                });
+            });
+
+            grid.innerHTML = html;
+        }
+
+        // ============================================
+        // MODALS
+        // ============================================
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            selectedSlot = null;
+        }
+
+        function showBlockModal(date, hour, label) {
+            selectedSlot = { date, hour, label };
+            document.getElementById('blockModalSlotInfo').textContent = `${formatFullDate(date)} • ${label}`;
+            document.getElementById('blockModal').classList.add('active');
+        }
+
+        async function confirmBlock() {
+            if (!selectedSlot) return;
+
+            const reason = document.getElementById('blockReason').value;
+            const slotId = `${selectedSlot.date}-${selectedSlot.hour}`;
+
+            try {
+                await db.collection('slots').doc(slotId).set({
+                    date: selectedSlot.date,
+                    hour: selectedSlot.hour,
+                    status: 'blocked',
+                    reason: reason,
+                    blockedAt: new Date().toISOString()
+                });
+
+                closeModal('blockModal');
+                renderSchedule();
+            } catch (error) {
+                console.error('Error blocking slot:', error);
+                alert('Error blocking slot. Please try again.');
+            }
+        }
+
+        function showUnblockModal(date, hour, label) {
+            selectedSlot = { date, hour, label };
+            document.getElementById('unblockModalSlotInfo').textContent = `${formatFullDate(date)} • ${label}`;
+            document.getElementById('unblockModal').classList.add('active');
+        }
+
+        async function confirmUnblock() {
+            if (!selectedSlot) return;
+
+            const slotId = `${selectedSlot.date}-${selectedSlot.hour}`;
+
+            try {
+                await db.collection('slots').doc(slotId).delete();
+                closeModal('unblockModal');
+                renderSchedule();
+            } catch (error) {
+                console.error('Error unblocking slot:', error);
+                alert('Error unblocking slot. Please try again.');
+            }
+        }
+
+        async function showBookingDetails(date, hour, label) {
+            selectedSlot = { date, hour, label };
+            const slotId = `${date}-${hour}`;
+
+            try {
+                const doc = await db.collection('slots').doc(slotId).get();
+                if (doc.exists) {
+                    const data = doc.data();
+
+                    document.getElementById('bookingModalSlotInfo').textContent = `${formatFullDate(date)} • ${label}`;
+
+                    // Handle both string and object format for bookedBy
+                    let detailsHtml;
+                    if (typeof data.bookedBy === 'string') {
+                        detailsHtml = `
+                            <p><strong>Name:</strong> ${data.bookedBy}</p>
+                            <p><strong>Booked:</strong> ${data.bookedAt ? new Date(data.bookedAt).toLocaleString() : 'N/A'}</p>
+                        `;
+                    } else {
+                        const booker = data.bookedBy || {};
+                        detailsHtml = `
+                            <p><strong>Name:</strong> ${booker.name || 'N/A'}</p>
+                            <p><strong>Email:</strong> ${booker.email || 'N/A'}</p>
+                            <p><strong>Phone:</strong> ${booker.phone || 'N/A'}</p>
+                            <p><strong>Notes:</strong> ${booker.notes || 'None'}</p>
+                            <p><strong>Booked:</strong> ${data.bookedAt ? new Date(data.bookedAt).toLocaleString() : 'N/A'}</p>
+                        `;
+                    }
+
+                    document.getElementById('bookingDetails').innerHTML = detailsHtml;
+                    document.getElementById('bookingModal').classList.add('active');
+                }
+            } catch (error) {
+                console.error('Error fetching booking:', error);
+            }
+        }
+
+        async function confirmCancelBooking() {
+            if (!selectedSlot) return;
+
+            if (!confirm('Are you sure you want to cancel this booking? The person who booked will need to be notified.')) {
+                return;
+            }
+
+            const slotId = `${selectedSlot.date}-${selectedSlot.hour}`;
+
+            try {
+                await db.collection('slots').doc(slotId).delete();
+                closeModal('bookingModal');
+                renderSchedule();
+                alert('Booking cancelled. Remember to notify the person who booked.');
+            } catch (error) {
+                console.error('Error cancelling booking:', error);
+                alert('Error cancelling booking. Please try again.');
+            }
+        }
+
+        // Close modals on escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal('blockModal');
+                closeModal('unblockModal');
+                closeModal('bookingModal');
+            }
+        });
+
+        // ============================================
+        // INITIALIZE
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('passwordInput').focus();
+        });
+    </script>
+</body>
+</html>

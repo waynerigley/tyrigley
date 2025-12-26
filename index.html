@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ty Rigley - Professional Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #3b82f6;
+            --accent-dark: #2563eb;
+            --secondary: #94a3b8;
+            --success: #10b981;
+            --success-light: #064e3b;
+            --warning: #d97706;
+            --danger: #ef4444;
+            --danger-light: #7f1d1d;
+            --light: #1e293b;
+            --dark: #f1f5f9;
+            --border: #334155;
+            --card-bg: #0f172a;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+            --card-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #030712;
+            min-height: 100vh;
+            padding: 40px 20px;
+            line-height: 1.6;
+            color: var(--dark);
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: var(--card-shadow-lg);
+            overflow: hidden;
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+        }
+
+        /* Header Section */
+        .header {
+            background: var(--primary);
+            color: white;
+            padding: 48px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--accent) 0%, #8b5cf6 50%, #ec4899 100%);
+        }
+
+        .profile-photo {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 4px solid rgba(255,255,255,0.2);
+            object-fit: cover;
+            margin-bottom: 24px;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 42px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 2px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+        }
+
+        .header .tagline {
+            font-size: 0.95rem;
+            opacity: 0.7;
+            font-weight: 400;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 32px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .section-title .icon {
+            width: 28px;
+            height: 28px;
+            background: var(--accent);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+        }
+
+        /* Contact Section */
+        .password-form {
+            display: flex;
+            gap: 12px;
+            max-width: 320px;
+            margin: 20px auto;
+        }
+
+        .password-input {
+            flex: 1;
+            padding: 14px 18px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.2s ease;
+            background: var(--primary-light);
+            color: var(--dark);
+        }
+
+        .password-input:focus {
+            border-color: var(--accent);
+            background: var(--primary);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+        }
+
+        .password-input::placeholder {
+            color: var(--secondary);
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+
+        .contact-info {
+            display: none;
+        }
+
+        .contact-info.visible {
+            display: block;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .contact-item:first-child {
+            padding-top: 0;
+        }
+
+        .contact-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--accent) 0%, #8b5cf6 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .contact-label {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .contact-value {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 1.05rem;
+            margin-top: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .email-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .email-btn:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+        }
+
+        .email-btn.small {
+            width: 24px;
+            height: 24px;
+            font-size: 11px;
+            border-radius: 6px;
+            vertical-align: middle;
+            margin-left: 6px;
+        }
+
+        .error-message {
+            color: var(--danger);
+            font-size: 0.9rem;
+            margin-top: 12px;
+            display: none;
+            font-weight: 500;
+        }
+
+        /* Medical/Emergency Section */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .info-card {
+            background: var(--primary-light);
+            border-radius: 14px;
+            padding: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .info-card.emergency {
+            background: linear-gradient(135deg, rgba(127, 29, 29, 0.3) 0%, rgba(153, 27, 27, 0.2) 100%);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .info-card h4 {
+            font-size: 0.7rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .info-card p {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .info-card.emergency h4 {
+            color: var(--danger);
+        }
+
+        .allergy-list {
+            list-style: none;
+        }
+
+        .allergy-list li {
+            padding: 2px 0;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        /* Booking Section */
+        .booking-section {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .booking-text {
+            color: var(--secondary);
+            margin-bottom: 24px;
+            font-size: 1rem;
+        }
+
+        .booking-note {
+            color: var(--secondary);
+            font-size: 0.85rem;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        /* Calendar Navigation */
+        .calendar-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding: 0 4px;
+        }
+
+        .cal-nav-btn {
+            background: var(--primary-light);
+            border: 1px solid var(--border);
+            color: var(--dark);
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .cal-nav-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .week-label {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 1rem;
+        }
+
+        /* Schedule Grid */
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: 60px repeat(7, 1fr);
+            gap: 3px;
+            background: var(--primary-light);
+            border-radius: 12px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            overflow-x: auto;
+            max-height: 450px;
+            overflow-y: auto;
+        }
+
+        .schedule-header {
+            text-align: center;
+            padding: 10px 4px;
+            font-weight: 600;
+            font-size: 0.7rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            position: sticky;
+            top: 0;
+            background: var(--primary-light);
+            z-index: 10;
+        }
+
+        .schedule-header.day-header {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .schedule-header .day-name {
+            font-size: 0.65rem;
+            color: var(--secondary);
+        }
+
+        .schedule-header .day-num {
+            font-size: 0.95rem;
+            color: var(--dark);
+        }
+
+        .time-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: var(--secondary);
+            font-weight: 500;
+        }
+
+        .time-slot {
+            background: var(--primary);
+            border-radius: 6px;
+            padding: 6px 2px;
+            text-align: center;
+            font-size: 0.6rem;
+            cursor: pointer;
+            transition: all 0.15s;
+            min-height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid transparent;
+        }
+
+        .time-slot.available {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .time-slot.available:hover {
+            background: rgba(16, 185, 129, 0.35);
+            transform: scale(1.02);
+        }
+
+        .time-slot.booked {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--accent);
+            border-color: rgba(59, 130, 246, 0.4);
+            cursor: default;
+        }
+
+        .time-slot.blocked {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--danger);
+            border-color: transparent;
+            cursor: default;
+        }
+
+        .time-slot.past {
+            opacity: 0.3;
+            cursor: default;
+        }
+
+        .time-slot.past:hover {
+            transform: none;
+        }
+
+        .slot-status {
+            font-weight: 600;
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        /* Schedule Legend */
+        .schedule-legend {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .schedule-legend .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: var(--secondary);
+        }
+
+        .schedule-legend .legend-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 4px;
+        }
+
+        .schedule-legend .legend-dot.available {
+            background: rgba(16, 185, 129, 0.3);
+            border: 2px solid var(--success);
+        }
+
+        .schedule-legend .legend-dot.booked {
+            background: rgba(59, 130, 246, 0.3);
+            border: 2px solid var(--accent);
+        }
+
+        .schedule-legend .legend-dot.blocked {
+            background: rgba(239, 68, 68, 0.3);
+            border: 2px solid var(--danger);
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10001;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 32px;
+            max-width: 420px;
+            width: 90%;
+            position: relative;
+            border: 1px solid var(--border);
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--primary-light);
+            border: none;
+            color: var(--secondary);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        .modal-content h3 {
+            color: var(--dark);
+            margin-bottom: 8px;
+            font-size: 1.3rem;
+        }
+
+        .modal-slot-info {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--secondary);
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            background: var(--primary-light);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            color: var(--dark);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--secondary);
+        }
+
+        .btn-full {
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        /* Time Selection UI */
+        .time-selection {
+            background: var(--primary-light);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .time-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .time-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .time-label-small {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .time-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .time-arrow {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-top: 16px;
+        }
+
+        .time-select {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent);
+            background: var(--primary);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .time-select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .time-select option {
+            background: var(--primary);
+            color: var(--dark);
+        }
+
+        .duration-badge {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--accent);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* QR Code Section */
+        .qr-section {
+            text-align: center;
+            background: var(--primary-light);
+        }
+
+        .qr-code {
+            width: 180px;
+            height: 180px;
+            margin: 20px auto;
+            background: white;
+            padding: 12px;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .qr-code canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        .qr-instructions {
+            color: var(--secondary);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 24px;
+            color: #64748b;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Full Page Login Overlay */
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #030712;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .login-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+        }
+
+        .login-overlay.hidden {
+            display: none;
+        }
+
+        .login-box {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 48px 40px;
+            text-align: center;
+            box-shadow: var(--card-shadow-lg);
+            max-width: 380px;
+            width: 90%;
+            position: relative;
+            z-index: 1;
+            border: 1px solid var(--border);
+        }
+
+        .login-box h1 {
+            font-size: 1.75rem;
+            color: var(--dark);
+            margin-bottom: 8px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .login-box .subtitle {
+            color: var(--secondary);
+            margin-bottom: 32px;
+            font-size: 0.95rem;
+        }
+
+        .login-box .password-form {
+            flex-direction: column;
+            max-width: 100%;
+        }
+
+        .login-box .password-input {
+            text-align: center;
+            font-size: 1.1rem;
+            padding: 16px 20px;
+            letter-spacing: 2px;
+        }
+
+        .login-box .btn {
+            width: 100%;
+            padding: 16px 24px;
+            font-size: 1rem;
+        }
+
+        .login-box .error-message {
+            margin-top: 16px;
+        }
+
+        .login-box .lock-icon {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, var(--accent) 0%, #8b5cf6 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 32px;
+        }
+
+        /* Hide main content until unlocked */
+        .main-content {
+            display: none;
+        }
+
+        .main-content.visible {
+            display: block;
+        }
+
+        /* Profile Photo Lightbox */
+        .profile-photo {
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.05);
+        }
+
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            animation: lightboxIn 0.3s ease;
+        }
+
+        @keyframes lightboxIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .login-overlay {
+                display: none !important;
+            }
+
+            .main-content {
+                display: block !important;
+            }
+
+            .card {
+                box-shadow: none;
+                border: 1px solid var(--border);
+            }
+
+            .calendar-nav {
+                display: none;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            body {
+                padding: 16px;
+            }
+
+            .header {
+                padding: 36px 24px;
+            }
+
+            .header h1 {
+                font-size: 1.6rem;
+            }
+
+            .section {
+                padding: 24px;
+            }
+
+            .password-form {
+                flex-direction: column;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .login-box {
+                padding: 36px 28px;
+            }
+
+            .calendar-grid {
+                padding: 12px;
+                gap: 2px;
+            }
+
+            .calendar-day {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Full Page Login Overlay -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-box">
+            <div class="lock-icon">&#128274;</div>
+            <h1>Ty Rigley</h1>
+            <p class="subtitle">This profile is password protected</p>
+            <div class="password-form">
+                <input type="password" class="password-input" id="passwordInput" placeholder="Enter password">
+                <button class="btn btn-primary" onclick="unlockPage()">Unlock Profile</button>
+            </div>
+            <p class="error-message" id="errorMessage">Incorrect password. Please try again.</p>
+        </div>
+    </div>
+
+    <!-- Main Content (hidden until unlocked) -->
+    <div class="main-content" id="mainContent">
+        <div class="container">
+            <div class="card">
+                <!-- Header with Photo and Name -->
+                <div class="header">
+                    <div class="profile-photo" onclick="openLightbox()">
+                        <img src="TyProfile.png" alt="Ty Rigley">
+                    </div>
+                    <h1>Ty Rigley</h1>
+                    <p class="tagline">Personal Profile</p>
+                </div>
+
+                <!-- Photo Lightbox -->
+                <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+                    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+                    <img src="TyProfile.png" alt="Ty Rigley">
+                </div>
+
+                <!-- Contact Info -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <span class="icon">&#128222;</span>
+                        Contact Information
+                    </h2>
+                    <div class="contact-info visible">
+                    <div class="contact-item">
+                        <div class="contact-icon">&#128222;</div>
+                        <div>
+                            <div class="contact-label">Mobile</div>
+                            <div class="contact-value">(226) 961-6011</div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">&#9993;</div>
+                        <div>
+                            <div class="contact-label">Email</div>
+                            <div class="contact-value">
+                                tyrigley@gmail.com
+                                <a href="mailto:tyrigley@gmail.com" class="email-btn" title="Send Email">&#9993;</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">&#127874;</div>
+                        <div>
+                            <div class="contact-label">Birthday</div>
+                            <div class="contact-value">August 27, 2011</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medical & Emergency Info -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="icon">&#128153;</span>
+                    Medical & Emergency Information
+                </h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>Blood Type</h4>
+                        <p>O+</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Allergies</h4>
+                        <p>None</p>
+                    </div>
+                    <div class="info-card emergency">
+                        <h4>Emergency Contact - Dad</h4>
+                        <p>Wayne Rigley</p>
+                        <p style="font-size: 0.9rem; margin-top: 4px;">(226) 506-1254</p>
+                        <p style="font-size: 0.85rem; color: var(--secondary);">
+                            waynerigley@gmail.com
+                            <a href="mailto:waynerigley@gmail.com" class="email-btn small" title="Send Email">&#9993;</a>
+                        </p>
+                    </div>
+                    <div class="info-card emergency">
+                        <h4>Emergency Contact - Mom</h4>
+                        <p>Maggie Karol</p>
+                        <p style="font-size: 0.9rem; margin-top: 4px;">(519) 980-4197</p>
+                        <p style="font-size: 0.85rem; color: var(--secondary);">
+                            bellamagz@gmail.com
+                            <a href="mailto:bellamagz@gmail.com" class="email-btn small" title="Send Email">&#9993;</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Availability / Booking -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="icon">&#128197;</span>
+                    Availability
+                </h2>
+                <div class="booking-section">
+                    <p class="booking-text">Click on an available time to start booking, then select your end time.</p>
+
+                    <div class="calendar-nav-header">
+                        <button class="cal-nav-btn" onclick="previousWeek()">&#8249; Previous</button>
+                        <span id="weekLabel" class="week-label">Dec 23 - Dec 29, 2025</span>
+                        <button class="cal-nav-btn" onclick="nextWeek()">Next &#8250;</button>
+                    </div>
+
+                    <div class="schedule-grid" id="scheduleGrid">
+                        <!-- Calendar will be generated by JavaScript -->
+                    </div>
+
+                    <div class="schedule-legend">
+                        <div class="legend-item"><span class="legend-dot available"></span> Available</div>
+                        <div class="legend-item"><span class="legend-dot booked"></span> Booked</div>
+                        <div class="legend-item"><span class="legend-dot blocked"></span> Unavailable</div>
+                    </div>
+
+                    <p class="booking-note">Ty manages his own schedule including school, homework, and personal time.</p>
+                </div>
+            </div>
+
+            <!-- Booking Modal -->
+            <div class="modal" id="bookingModal">
+                <div class="modal-content">
+                    <button class="modal-close" onclick="closeModal()">&times;</button>
+                    <h3>Book Time</h3>
+                    <p id="modalSlotInfo" class="modal-slot-info"></p>
+                    <form id="bookingForm" onsubmit="submitBooking(event)">
+                        <div class="time-selection">
+                            <div class="time-display">
+                                <div class="time-block">
+                                    <span class="time-label-small">Start</span>
+                                    <span class="time-value" id="startTimeDisplay">9AM</span>
+                                </div>
+                                <span class="time-arrow">→</span>
+                                <div class="time-block">
+                                    <span class="time-label-small">End</span>
+                                    <select id="endTimeSelect" required class="time-select">
+                                        <!-- Populated by JavaScript -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="duration-badge" id="durationInfo">4 hours</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Your Name</label>
+                            <input type="text" id="bookerName" required placeholder="Enter your name">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">Confirm Booking</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- QR Code Section -->
+            <div class="section qr-section">
+                <h2 class="section-title" style="justify-content: center;">
+                    <span class="icon">&#128241;</span>
+                    Save My Contact
+                </h2>
+                <div class="qr-code">
+                    <img src="tyqrcode.svg" alt="QR Code - Scan to save contact" style="width: 100%; height: 100%; object-fit: contain;">
+                </div>
+                <p class="qr-instructions">Scan this QR code to save my contact information to your phone</p>
+            </div>
+
+            <div class="footer">
+                <p>tyrigley.com</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <script>
+        // ============================================
+        // CONFIGURATION
+        // ============================================
+        const CONFIG = {
+            password: 'hire2025', // Change this password
+        };
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCg_vuhhW9TlxA84uKOv2mpfuZNdfKLWCk",
+            authDomain: "tyrigley-83566.firebaseapp.com",
+            projectId: "tyrigley-83566",
+            storageBucket: "tyrigley-83566.firebasestorage.app",
+            messagingSenderId: "940995424988",
+            appId: "1:940995424988:web:e235ea793882d7ebb9ba19"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // ============================================
+        // CALENDAR STATE
+        // ============================================
+        let currentWeekStart = getMonday(new Date());
+        let selectedSlot = null;
+        let currentSlots = {}; // Store fetched slots for end time calculation
+
+        // Hourly slots from 7am to 9pm
+        const TIME_SLOTS = [];
+        for (let hour = 7; hour <= 21; hour++) {
+            const label = hour < 12 ? `${hour}AM` : hour === 12 ? '12PM' : `${hour-12}PM`;
+            TIME_SLOTS.push({ label, hour });
+        }
+
+        function getMonday(date) {
+            const d = new Date(date);
+            const day = d.getDay();
+            const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+            d.setDate(diff);
+            d.setHours(0, 0, 0, 0);
+            return d;
+        }
+
+        // ============================================
+        // PASSWORD PROTECTION - Full Page
+        // ============================================
+        function unlockPage() {
+            const input = document.getElementById('passwordInput');
+            const error = document.getElementById('errorMessage');
+            const loginOverlay = document.getElementById('loginOverlay');
+            const mainContent = document.getElementById('mainContent');
+
+            if (input.value === CONFIG.password) {
+                loginOverlay.classList.add('hidden');
+                mainContent.classList.add('visible');
+                error.style.display = 'none';
+                // Initialize calendar after unlock
+                renderSchedule();
+            } else {
+                error.style.display = 'block';
+                input.value = '';
+                input.focus();
+            }
+        }
+
+        // Allow Enter key to submit password
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                unlockPage();
+            }
+        });
+
+        // ============================================
+        // LIGHTBOX
+        // ============================================
+        function openLightbox() {
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close lightbox with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+
+        // ============================================
+        // SCHEDULE CALENDAR
+        // ============================================
+        function formatDate(date) {
+            return date.toISOString().split('T')[0];
+        }
+
+        function formatDateDisplay(date) {
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            return `${months[date.getMonth()]} ${date.getDate()}`;
+        }
+
+        function getWeekDates() {
+            const dates = [];
+            for (let i = 0; i < 7; i++) {
+                const date = new Date(currentWeekStart);
+                date.setDate(date.getDate() + i);
+                dates.push(date);
+            }
+            return dates;
+        }
+
+        function previousWeek() {
+            currentWeekStart.setDate(currentWeekStart.getDate() - 7);
+            renderSchedule();
+        }
+
+        function nextWeek() {
+            currentWeekStart.setDate(currentWeekStart.getDate() + 7);
+            renderSchedule();
+        }
+
+        async function renderSchedule() {
+            const grid = document.getElementById('scheduleGrid');
+            const weekLabel = document.getElementById('weekLabel');
+            const dates = getWeekDates();
+
+            // Update week label
+            const endDate = new Date(dates[6]);
+            weekLabel.textContent = `${formatDateDisplay(dates[0])} - ${formatDateDisplay(endDate)}, ${dates[0].getFullYear()}`;
+
+            // Fetch slots for this week from Firebase
+            const startStr = formatDate(dates[0]);
+            const endStr = formatDate(dates[6]);
+
+            currentSlots = {}; // Reset and store globally
+            try {
+                const snapshot = await db.collection('slots')
+                    .where('date', '>=', startStr)
+                    .where('date', '<=', endStr)
+                    .get();
+
+                snapshot.forEach(doc => {
+                    currentSlots[doc.id] = doc.data();
+                });
+            } catch (error) {
+                console.error('Error fetching slots:', error);
+            }
+
+            // Build grid HTML
+            const dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            let html = '<div class="schedule-header"></div>';
+
+            // Day headers
+            dates.forEach((date, i) => {
+                html += `
+                    <div class="schedule-header day-header">
+                        <span class="day-name">${dayNames[i]}</span>
+                        <span class="day-num">${date.getDate()}</span>
+                    </div>
+                `;
+            });
+
+            // Time slot rows
+            const now = new Date();
+            TIME_SLOTS.forEach(slot => {
+                html += `<div class="time-label">${slot.label}</div>`;
+
+                dates.forEach(date => {
+                    const dateStr = formatDate(date);
+                    const slotId = `${dateStr}-${slot.hour}`;
+                    const slotData = currentSlots[slotId];
+
+                    // Check if slot is in the past
+                    const slotTime = new Date(date);
+                    slotTime.setHours(slot.hour, 0, 0, 0);
+                    const isPast = slotTime < now;
+
+                    let status = 'available';
+                    let statusText = '';
+                    let clickable = true;
+
+                    if (isPast) {
+                        status = 'past';
+                        statusText = '-';
+                        clickable = false;
+                    } else if (slotData) {
+                        if (slotData.status === 'booked') {
+                            status = 'booked';
+                            statusText = 'Booked';
+                            clickable = false;
+                        } else if (slotData.status === 'blocked') {
+                            status = 'blocked';
+                            statusText = '';
+                            clickable = false;
+                        }
+                    } else {
+                        statusText = 'Open';
+                    }
+
+                    const onclick = clickable ? `onclick="openBookingModal('${dateStr}', ${slot.hour}, '${slot.label}')"` : '';
+
+                    html += `
+                        <div class="time-slot ${status}" ${onclick}>
+                            <span class="slot-status">${statusText}</span>
+                        </div>
+                    `;
+                });
+            });
+
+            grid.innerHTML = html;
+        }
+
+        // ============================================
+        // BOOKING MODAL
+        // ============================================
+        function formatHour(hour) {
+            return hour < 12 ? `${hour}AM` : hour === 12 ? '12PM' : `${hour-12}PM`;
+        }
+
+        function openBookingModal(date, startHour, label) {
+            selectedSlot = { date, startHour };
+
+            const dateObj = new Date(date);
+            const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+            const displayDate = `${dayNames[dateObj.getDay()]}, ${months[dateObj.getMonth()]} ${dateObj.getDate()}`;
+
+            document.getElementById('modalSlotInfo').textContent = displayDate;
+            document.getElementById('startTimeDisplay').textContent = label;
+
+            // Populate end time options (find consecutive available slots)
+            const endTimeSelect = document.getElementById('endTimeSelect');
+            endTimeSelect.innerHTML = '';
+
+            let maxEndHour = startHour + 1;
+            for (let h = startHour + 1; h <= 22; h++) {
+                const slotId = `${date}-${h}`;
+                const slotData = currentSlots[slotId];
+                if (slotData && (slotData.status === 'booked' || slotData.status === 'blocked')) {
+                    break; // Stop at first blocked/booked slot
+                }
+                maxEndHour = h + 1;
+            }
+
+            for (let h = startHour + 1; h <= maxEndHour && h <= 22; h++) {
+                const option = document.createElement('option');
+                option.value = h;
+                option.textContent = formatHour(h);
+                endTimeSelect.appendChild(option);
+            }
+
+            updateDurationInfo();
+            document.getElementById('bookingModal').classList.add('active');
+            document.getElementById('bookerName').focus();
+        }
+
+        function updateDurationInfo() {
+            const endTime = parseInt(document.getElementById('endTimeSelect').value);
+            if (selectedSlot && endTime) {
+                const duration = endTime - selectedSlot.startHour;
+                document.getElementById('durationInfo').textContent =
+                    `${duration} hour${duration > 1 ? 's' : ''}`;
+            }
+        }
+
+        // Add event listener for end time change
+        document.getElementById('endTimeSelect').addEventListener('change', updateDurationInfo);
+
+        function closeModal() {
+            document.getElementById('bookingModal').classList.remove('active');
+            document.getElementById('bookingForm').reset();
+            selectedSlot = null;
+        }
+
+        async function submitBooking(event) {
+            event.preventDefault();
+
+            if (!selectedSlot) return;
+
+            const endHour = parseInt(document.getElementById('endTimeSelect').value);
+            const name = document.getElementById('bookerName').value;
+
+            const hoursToBook = [];
+            for (let h = selectedSlot.startHour; h < endHour; h++) {
+                hoursToBook.push(h);
+            }
+
+            try {
+                // Check if all slots are still available
+                for (const hour of hoursToBook) {
+                    const slotId = `${selectedSlot.date}-${hour}`;
+                    const doc = await db.collection('slots').doc(slotId).get();
+                    if (doc.exists && doc.data().status !== 'available') {
+                        alert('Sorry, one or more time slots have been taken. Please try again.');
+                        closeModal();
+                        renderSchedule();
+                        return;
+                    }
+                }
+
+                // Book all hours
+                const batch = db.batch();
+                const bookingId = `${selectedSlot.date}-${selectedSlot.startHour}-${endHour}`;
+
+                for (const hour of hoursToBook) {
+                    const slotId = `${selectedSlot.date}-${hour}`;
+                    const slotRef = db.collection('slots').doc(slotId);
+                    batch.set(slotRef, {
+                        date: selectedSlot.date,
+                        hour: hour,
+                        status: 'booked',
+                        bookingId: bookingId,
+                        bookedBy: name,
+                        bookedAt: new Date().toISOString()
+                    });
+                }
+
+                await batch.commit();
+
+                const duration = endHour - selectedSlot.startHour;
+                alert(`Booking confirmed!\n\n${formatHour(selectedSlot.startHour)} - ${formatHour(endHour)} (${duration} hours)\n${selectedSlot.date}\n\nTy will be in touch to confirm.`);
+                closeModal();
+                renderSchedule();
+
+            } catch (error) {
+                console.error('Error booking slot:', error);
+                alert('There was an error booking. Please try again.');
+            }
+        }
+
+        // Close modal on escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+                closeLightbox();
+            }
+        });
+
+        // Close modal on background click
+        document.getElementById('bookingModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // ============================================
+        // INITIALIZE
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Focus password input on load
+            document.getElementById('passwordInput').focus();
+        });
+    </script>
+</body>
+</html>
