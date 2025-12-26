@@ -658,13 +658,163 @@
         }
 
         @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+
+            .card {
+                padding: 16px;
+                border-radius: 12px;
+            }
+
+            .admin-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            h1 {
+                font-size: 1.3rem;
+            }
+
+            .subtitle {
+                font-size: 0.85rem;
+            }
+
+            /* Quick actions mobile */
+            .quick-actions {
+                width: 100%;
+            }
+
+            .btn-quick {
+                width: 100%;
+                justify-content: center;
+                padding: 14px 20px;
+            }
+
+            /* Calendar nav mobile */
+            .calendar-nav-header {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .cal-nav-btn {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+
+            .week-label {
+                width: 100%;
+                text-align: center;
+                order: -1;
+                font-size: 0.9rem;
+            }
+
+            /* Schedule grid mobile */
             .schedule-grid {
-                font-size: 0.65rem;
+                padding: 8px;
+                gap: 2px;
+                grid-template-columns: 40px repeat(7, 1fr);
+                max-height: 450px;
+            }
+
+            .schedule-header {
+                padding: 6px 2px;
+                font-size: 0.55rem;
+            }
+
+            .schedule-header .day-num {
+                font-size: 0.75rem;
+            }
+
+            .schedule-header .day-name {
+                font-size: 0.5rem;
+            }
+
+            .time-label {
+                font-size: 0.55rem;
             }
 
             .time-slot {
-                min-height: 50px;
-                padding: 4px 2px;
+                min-height: 32px;
+                padding: 3px 1px;
+            }
+
+            .slot-status {
+                font-size: 0.4rem;
+            }
+
+            .slot-detail {
+                display: none;
+            }
+
+            /* Legend mobile */
+            .schedule-legend {
+                gap: 8px;
+                justify-content: flex-start;
+            }
+
+            .legend-item {
+                font-size: 0.65rem;
+            }
+
+            .legend-dot {
+                width: 10px;
+                height: 10px;
+            }
+
+            /* Instructions mobile */
+            .instructions {
+                padding: 14px;
+                font-size: 0.8rem;
+            }
+
+            .instructions ul {
+                margin-left: 16px;
+            }
+
+            /* Modal mobile */
+            .modal-content {
+                padding: 24px 20px;
+                margin: 12px;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+
+            .modal-content h3 {
+                font-size: 1.1rem;
+            }
+
+            .form-group input,
+            .form-group select {
+                padding: 10px 12px;
+                font-size: 0.95rem;
+            }
+
+            .day-checkboxes {
+                gap: 6px;
+            }
+
+            .day-check {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+            }
+
+            .modal-actions .btn {
+                width: 100%;
+            }
+
+            /* Login mobile */
+            .login-box {
+                padding: 32px 24px;
+            }
+
+            .login-box h1 {
+                font-size: 1.3rem;
             }
         }
     </style>
@@ -867,7 +1017,7 @@
 
         // Hourly slots from 7am to 10pm
         const TIME_SLOTS = [];
-        for (let hour = 7; hour <= 21; hour++) {
+        for (let hour = 7; hour <= 22; hour++) {
             const label = hour < 12 ? `${hour}AM` : hour === 12 ? '12PM' : `${hour-12}PM`;
             TIME_SLOTS.push({ label, hour });
         }
