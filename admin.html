@@ -190,6 +190,37 @@
             text-decoration: underline;
         }
 
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-quick {
+            background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-quick:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+        }
+
+        .quick-icon {
+            font-size: 1.1rem;
+        }
+
         /* Calendar Navigation */
         .calendar-nav-header {
             display: flex;
@@ -345,12 +376,12 @@
         }
 
         .time-slot.blocked-sports {
-            background: rgba(34, 197, 94, 0.2);
-            color: #4ade80;
-            border-color: rgba(34, 197, 94, 0.4);
+            background: rgba(6, 182, 212, 0.2);
+            color: #22d3ee;
+            border-color: rgba(6, 182, 212, 0.4);
         }
         .time-slot.blocked-sports:hover {
-            background: rgba(34, 197, 94, 0.35);
+            background: rgba(6, 182, 212, 0.35);
         }
 
         .time-slot.blocked-other {
@@ -441,8 +472,8 @@
         }
 
         .legend-dot.sports {
-            background: rgba(34, 197, 94, 0.3);
-            border: 2px solid #4ade80;
+            background: rgba(6, 182, 212, 0.3);
+            border: 2px solid #22d3ee;
         }
 
         .legend-dot.other {
@@ -546,6 +577,46 @@
             flex: 1;
         }
 
+        /* Day checkboxes for quick block */
+        .day-checkboxes {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .day-check {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--primary-light);
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            border: 2px solid var(--border);
+            transition: all 0.2s;
+        }
+
+        .day-check:has(input:checked) {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: #a78bfa;
+            color: #a78bfa;
+        }
+
+        .day-check input {
+            accent-color: #a78bfa;
+        }
+
+        .quick-block-preview {
+            background: var(--primary-light);
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+            color: var(--secondary);
+            text-align: center;
+        }
+
         /* Booking details */
         .booking-details {
             background: var(--primary-light);
@@ -622,6 +693,12 @@
                         <p class="subtitle">Block times, view bookings, manage your availability</p>
                     </div>
                     <a href="index.html" class="back-link">&larr; Back to Profile</a>
+                </div>
+
+                <div class="quick-actions">
+                    <button class="btn btn-quick" onclick="showQuickBlockModal()">
+                        <span class="quick-icon">📚</span> Block School Week
+                    </button>
                 </div>
 
                 <div class="calendar-nav-header">
@@ -708,6 +785,52 @@
             <div class="modal-actions">
                 <button class="btn btn-danger" onclick="confirmCancelBooking()">Cancel Booking</button>
                 <button class="btn" style="background: var(--primary-light);" onclick="closeModal('bookingModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Block School Modal -->
+    <div class="modal" id="quickBlockModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('quickBlockModal')">&times;</button>
+            <h3>Block School Week</h3>
+            <p style="color: var(--secondary); margin-bottom: 20px;">Quickly block school hours for the current week (Mon-Fri)</p>
+
+            <div class="form-group">
+                <label>Start Time</label>
+                <select id="schoolStartTime">
+                    <option value="7">7:00 AM</option>
+                    <option value="8" selected>8:00 AM</option>
+                    <option value="9">9:00 AM</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>End Time</label>
+                <select id="schoolEndTime">
+                    <option value="14">2:00 PM</option>
+                    <option value="15" selected>3:00 PM</option>
+                    <option value="16">4:00 PM</option>
+                    <option value="17">5:00 PM</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Days to Block</label>
+                <div class="day-checkboxes">
+                    <label class="day-check"><input type="checkbox" id="dayMon" checked> Mon</label>
+                    <label class="day-check"><input type="checkbox" id="dayTue" checked> Tue</label>
+                    <label class="day-check"><input type="checkbox" id="dayWed" checked> Wed</label>
+                    <label class="day-check"><input type="checkbox" id="dayThu" checked> Thu</label>
+                    <label class="day-check"><input type="checkbox" id="dayFri" checked> Fri</label>
+                </div>
+            </div>
+
+            <div id="quickBlockPreview" class="quick-block-preview"></div>
+
+            <div class="modal-actions">
+                <button class="btn" style="background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%); color: white;" onclick="confirmQuickBlock()">Block School Hours</button>
+                <button class="btn" style="background: var(--primary-light);" onclick="closeModal('quickBlockModal')">Cancel</button>
             </div>
         </div>
     </div>
@@ -1040,12 +1163,112 @@
             }
         }
 
+        // ============================================
+        // QUICK BLOCK SCHOOL
+        // ============================================
+        function showQuickBlockModal() {
+            updateQuickBlockPreview();
+            document.getElementById('quickBlockModal').classList.add('active');
+        }
+
+        function updateQuickBlockPreview() {
+            const startHour = parseInt(document.getElementById('schoolStartTime').value);
+            const endHour = parseInt(document.getElementById('schoolEndTime').value);
+            const days = [];
+            if (document.getElementById('dayMon').checked) days.push('Mon');
+            if (document.getElementById('dayTue').checked) days.push('Tue');
+            if (document.getElementById('dayWed').checked) days.push('Wed');
+            if (document.getElementById('dayThu').checked) days.push('Thu');
+            if (document.getElementById('dayFri').checked) days.push('Fri');
+
+            const hoursPerDay = endHour - startHour;
+            const totalSlots = days.length * hoursPerDay;
+
+            const formatHour = (h) => h < 12 ? `${h}AM` : h === 12 ? '12PM' : `${h-12}PM`;
+
+            document.getElementById('quickBlockPreview').innerHTML = days.length > 0
+                ? `Will block <strong>${totalSlots} slots</strong> (${formatHour(startHour)} - ${formatHour(endHour)}, ${days.join(', ')})`
+                : 'Select at least one day';
+        }
+
+        async function confirmQuickBlock() {
+            const startHour = parseInt(document.getElementById('schoolStartTime').value);
+            const endHour = parseInt(document.getElementById('schoolEndTime').value);
+
+            // Get selected days (0=Mon, 1=Tue, etc in our week array)
+            const selectedDays = [];
+            if (document.getElementById('dayMon').checked) selectedDays.push(0);
+            if (document.getElementById('dayTue').checked) selectedDays.push(1);
+            if (document.getElementById('dayWed').checked) selectedDays.push(2);
+            if (document.getElementById('dayThu').checked) selectedDays.push(3);
+            if (document.getElementById('dayFri').checked) selectedDays.push(4);
+
+            if (selectedDays.length === 0) {
+                alert('Please select at least one day');
+                return;
+            }
+
+            const dates = getWeekDates();
+            const now = new Date();
+            const batch = db.batch();
+            let slotsBlocked = 0;
+
+            for (const dayIndex of selectedDays) {
+                const date = dates[dayIndex];
+                const dateStr = formatDate(date);
+
+                for (let hour = startHour; hour < endHour; hour++) {
+                    // Skip past slots
+                    const slotTime = new Date(date);
+                    slotTime.setHours(hour, 0, 0, 0);
+                    if (slotTime < now) continue;
+
+                    const slotId = `${dateStr}-${hour}`;
+                    const slotRef = db.collection('slots').doc(slotId);
+
+                    batch.set(slotRef, {
+                        date: dateStr,
+                        hour: hour,
+                        status: 'blocked',
+                        reason: 'School',
+                        blockedAt: new Date().toISOString()
+                    });
+                    slotsBlocked++;
+                }
+            }
+
+            if (slotsBlocked === 0) {
+                alert('No slots to block (all selected times may be in the past)');
+                return;
+            }
+
+            try {
+                await batch.commit();
+                alert(`Blocked ${slotsBlocked} school hour slots!`);
+                closeModal('quickBlockModal');
+                renderSchedule();
+            } catch (error) {
+                console.error('Error blocking slots:', error);
+                alert('Error blocking slots. Please try again.');
+            }
+        }
+
+        // Add event listeners for preview updates
+        document.getElementById('schoolStartTime').addEventListener('change', updateQuickBlockPreview);
+        document.getElementById('schoolEndTime').addEventListener('change', updateQuickBlockPreview);
+        document.getElementById('dayMon').addEventListener('change', updateQuickBlockPreview);
+        document.getElementById('dayTue').addEventListener('change', updateQuickBlockPreview);
+        document.getElementById('dayWed').addEventListener('change', updateQuickBlockPreview);
+        document.getElementById('dayThu').addEventListener('change', updateQuickBlockPreview);
+        document.getElementById('dayFri').addEventListener('change', updateQuickBlockPreview);
+
         // Close modals on escape
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeModal('blockModal');
                 closeModal('unblockModal');
                 closeModal('bookingModal');
+                closeModal('quickBlockModal');
             }
         });
 
