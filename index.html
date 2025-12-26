@@ -804,8 +804,9 @@
             right: 0;
             bottom: 0;
             background:
-                radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+                radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.03) 0%, transparent 70%);
         }
 
         .login-overlay.hidden {
@@ -814,29 +815,62 @@
 
         .login-box {
             background: var(--card-bg);
-            border-radius: 24px;
-            padding: 48px 40px;
+            border-radius: 28px;
+            padding: 48px 44px;
             text-align: center;
-            box-shadow: var(--card-shadow-lg);
-            max-width: 380px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            max-width: 400px;
             width: 90%;
             position: relative;
             z-index: 1;
             border: 1px solid var(--border);
         }
 
+        .login-photo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 24px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--border);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .login-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .login-box h1 {
-            font-size: 1.75rem;
+            font-size: 1.85rem;
             color: var(--dark);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-weight: 700;
             letter-spacing: -0.5px;
         }
 
         .login-box .subtitle {
+            color: var(--accent);
+            margin-bottom: 0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .login-divider {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), #8b5cf6);
+            margin: 24px auto;
+            border-radius: 2px;
+        }
+
+        .login-instruction {
             color: var(--secondary);
-            margin-bottom: 32px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
         }
 
         .login-box .password-form {
@@ -848,29 +882,45 @@
             text-align: center;
             font-size: 1.1rem;
             padding: 16px 20px;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            background: rgba(30, 41, 59, 0.5);
+            border: 2px solid var(--border);
+        }
+
+        .login-box .password-input:focus {
+            background: var(--primary);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
         }
 
         .login-box .btn {
             width: 100%;
             padding: 16px 24px;
             font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .login-box .btn .btn-arrow {
+            transition: transform 0.2s;
+        }
+
+        .login-box .btn:hover .btn-arrow {
+            transform: translateX(4px);
         }
 
         .login-box .error-message {
             margin-top: 16px;
         }
 
-        .login-box .lock-icon {
-            width: 72px;
-            height: 72px;
-            background: linear-gradient(135deg, var(--accent) 0%, #8b5cf6 100%);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-            font-size: 32px;
+        .login-footer {
+            margin-top: 24px;
+            color: #475569;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         /* Hide main content until unlocked */
@@ -1022,14 +1072,22 @@
     <!-- Full Page Login Overlay -->
     <div class="login-overlay" id="loginOverlay">
         <div class="login-box">
-            <div class="lock-icon">&#128274;</div>
-            <h1>Ty Rigley</h1>
-            <p class="subtitle">This profile is password protected</p>
-            <div class="password-form">
-                <input type="password" class="password-input" id="passwordInput" placeholder="Enter password">
-                <button class="btn btn-primary" onclick="unlockPage()">Unlock Profile</button>
+            <div class="login-photo">
+                <img src="TyProfile.png" alt="Ty Rigley">
             </div>
-            <p class="error-message" id="errorMessage">Incorrect password. Please try again.</p>
+            <h1>Ty Rigley</h1>
+            <p class="subtitle">Professional Profile</p>
+            <div class="login-divider"></div>
+            <p class="login-instruction">Enter access code to view profile</p>
+            <div class="password-form">
+                <input type="password" class="password-input" id="passwordInput" placeholder="Access Code">
+                <button class="btn btn-primary" onclick="unlockPage()">
+                    <span>View Profile</span>
+                    <span class="btn-arrow">→</span>
+                </button>
+            </div>
+            <p class="error-message" id="errorMessage">Incorrect code. Please try again.</p>
+            <p class="login-footer">Authorized access only</p>
         </div>
     </div>
 
