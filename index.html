@@ -1368,6 +1368,9 @@
         </div>
     </div>
 
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
@@ -1379,6 +1382,16 @@
         const CONFIG = {
             password: 'hire2025', // Change this password
         };
+
+        // EmailJS Configuration
+        const EMAILJS_CONFIG = {
+            publicKey: 'B9LiioC06dvvPnMM-',
+            serviceId: 'service_4e0hd5r',
+            templateId: 'template_1248m2z'
+        };
+
+        // Initialize EmailJS
+        emailjs.init(EMAILJS_CONFIG.publicKey);
 
         // Firebase Configuration
         const firebaseConfig = {
@@ -1698,6 +1711,27 @@
                 await batch.commit();
 
                 const duration = endHour - selectedSlot.startHour;
+
+                // Send email notification to Ty
+                try {
+                    const dateObj = new Date(selectedSlot.date);
+                    const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                    const formattedDate = `${dayNames[dateObj.getDay()]}, ${months[dateObj.getMonth()]} ${dateObj.getDate()}, ${dateObj.getFullYear()}`;
+
+                    await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, {
+                        date: formattedDate,
+                        start_time: formatHour(selectedSlot.startHour),
+                        end_time: formatHour(endHour),
+                        duration: duration,
+                        booker_name: name
+                    });
+                    console.log('Email notification sent');
+                } catch (emailError) {
+                    console.error('Email notification failed:', emailError);
+                    // Don't block the booking if email fails
+                }
+
                 alert(`Booking confirmed!\n\n${formatHour(selectedSlot.startHour)} - ${formatHour(endHour)} (${duration} hours)\n${selectedSlot.date}\n\nTy will be in touch to confirm.`);
                 closeModal();
                 renderSchedule();
