@@ -1,5 +1,0 @@
-# Tyrigley Server Config
-HOST=192.168.0.87
-USER=root
-PATH=/var/www/html
-PASSWORD=2265061254
