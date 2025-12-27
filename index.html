@@ -339,6 +339,33 @@
             border: 1px solid rgba(239, 68, 68, 0.3);
         }
 
+        .info-card.emergency-dad {
+            background: linear-gradient(135deg, rgba(29, 78, 216, 0.3) 0%, rgba(59, 130, 246, 0.15) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+        }
+
+        .info-card.emergency-dad h4 {
+            color: #60a5fa;
+        }
+
+        .info-card.emergency-mom {
+            background: linear-gradient(135deg, rgba(219, 39, 119, 0.3) 0%, rgba(236, 72, 153, 0.15) 100%);
+            border: 1px solid rgba(236, 72, 153, 0.4);
+        }
+
+        .info-card.emergency-mom h4 {
+            color: #f472b6;
+        }
+
+        .info-card.emergency-aunt {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.3) 0%, rgba(139, 92, 246, 0.15) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.4);
+        }
+
+        .info-card.emergency-aunt h4 {
+            color: #a78bfa;
+        }
+
         .info-card.allergy-none {
             background: linear-gradient(135deg, rgba(6, 78, 59, 0.3) 0%, rgba(16, 185, 129, 0.15) 100%);
             border: 1px solid rgba(16, 185, 129, 0.4);
@@ -1352,7 +1379,7 @@
                         <h4>Allergies</h4>
                         <p>None</p>
                     </div>
-                    <div class="info-card emergency">
+                    <div class="info-card emergency-dad">
                         <h4>Emergency Contact - Dad</h4>
                         <p>Wayne Rigley</p>
                         <p style="font-size: 0.9rem; margin-top: 4px;">(226) 506-1254</p>
@@ -1361,7 +1388,7 @@
                             <a href="mailto:waynerigley@gmail.com" class="email-btn small" title="Send Email">&#9993;</a>
                         </p>
                     </div>
-                    <div class="info-card emergency">
+                    <div class="info-card emergency-mom">
                         <h4>Emergency Contact - Mom</h4>
                         <p>Maggie Karol</p>
                         <p style="font-size: 0.9rem; margin-top: 4px;">(519) 980-4197</p>
@@ -1370,11 +1397,20 @@
                             <a href="mailto:bellamagz@gmail.com" class="email-btn small" title="Send Email">&#9993;</a>
                         </p>
                     </div>
-                    <div class="info-card emergency" style="grid-column: 1 / -1;">
+                    <div class="info-card emergency">
                         <h4>Family Doctor</h4>
                         <p>Dr. Jarrar</p>
                         <p style="font-size: 0.9rem; margin-top: 4px;">(519) 946-0177</p>
-                        <p style="font-size: 0.85rem; color: var(--secondary);">13278 Tecumseh Rd E, Windsor, ON N8N 3T6</p>
+                        <p style="font-size: 0.85rem; color: var(--secondary);">13278 Tecumseh Rd E, Windsor, ON</p>
+                    </div>
+                    <div class="info-card emergency-aunt">
+                        <h4>Emergency Contact - Aunt</h4>
+                        <p>Marci Karol</p>
+                        <p style="font-size: 0.9rem; margin-top: 4px;">(519) 996-7841</p>
+                        <p style="font-size: 0.85rem; color: var(--secondary);">
+                            marcie.karol@sympatico.ca
+                            <a href="mailto:marcie.karol@sympatico.ca" class="email-btn small" title="Send Email">&#9993;</a>
+                        </p>
                     </div>
                 </div>
             </div>
