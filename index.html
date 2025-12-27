@@ -334,6 +334,27 @@
             border: 1px solid var(--border);
         }
 
+        .info-card.blood-type {
+            background: #ffffff;
+            border: 3px solid #ef4444;
+            text-align: center;
+        }
+
+        .info-card.blood-type h4 {
+            color: #ef4444;
+        }
+
+        .info-card.blood-type p {
+            color: #dc2626;
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+
+        .info-card.blood-type .blood-icon {
+            font-size: 2rem;
+            margin-bottom: 4px;
+        }
+
         .info-card.emergency {
             background: linear-gradient(135deg, rgba(127, 29, 29, 0.3) 0%, rgba(153, 27, 27, 0.2) 100%);
             border: 1px solid rgba(239, 68, 68, 0.3);
@@ -1371,7 +1392,8 @@
                     Medical & Emergency Information
                 </h2>
                 <div class="info-grid">
-                    <div class="info-card">
+                    <div class="info-card blood-type">
+                        <div class="blood-icon">🩸</div>
                         <h4>Blood Type</h4>
                         <p>O+</p>
                     </div>
