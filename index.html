@@ -652,6 +652,57 @@
             margin-top: 8px;
         }
 
+        /* Success Modal */
+        .success-modal {
+            text-align: center;
+            padding: 40px 32px;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--success) 0%, #34d399 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 40px;
+            color: white;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+        }
+
+        .success-modal h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .success-details {
+            background: var(--primary-light);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .success-time {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+
+        .success-date {
+            color: var(--secondary);
+            font-size: 0.95rem;
+        }
+
+        .success-message {
+            color: var(--secondary);
+            margin-bottom: 24px;
+            font-size: 1rem;
+        }
+
         /* Time Selection UI */
         .time-selection {
             background: var(--primary-light);
@@ -1353,6 +1404,20 @@
                 </div>
             </div>
 
+            <!-- Success Modal -->
+            <div class="modal" id="successModal">
+                <div class="modal-content success-modal">
+                    <div class="success-icon">✓</div>
+                    <h3>Booking Confirmed!</h3>
+                    <div class="success-details">
+                        <p class="success-time" id="successTime"></p>
+                        <p class="success-date" id="successDate"></p>
+                    </div>
+                    <p class="success-message">Ty will text to confirm.</p>
+                    <button class="btn btn-primary btn-full" onclick="closeSuccessModal()">Done</button>
+                </div>
+            </div>
+
             <!-- QR Code Section -->
             <div class="section qr-section">
                 <h2 class="section-title" style="justify-content: center;">
@@ -1669,6 +1734,21 @@
             selectedSlot = null;
         }
 
+        function showSuccessModal(startTime, endTime, duration, date) {
+            const dateObj = new Date(date);
+            const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const formattedDate = `${dayNames[dateObj.getDay()]}, ${months[dateObj.getMonth()]} ${dateObj.getDate()}`;
+
+            document.getElementById('successTime').textContent = `${startTime} - ${endTime} (${duration} hour${duration > 1 ? 's' : ''})`;
+            document.getElementById('successDate').textContent = formattedDate;
+            document.getElementById('successModal').classList.add('active');
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.remove('active');
+        }
+
         async function submitBooking(event) {
             event.preventDefault();
 
@@ -1739,7 +1819,7 @@
                     // Don't block the booking if email fails
                 }
 
-                alert(`Booking confirmed!\n\n${formatHour(selectedSlot.startHour)} - ${formatHour(endHour)} (${duration} hours)\n${selectedSlot.date}\n\nTy will be in touch to confirm.`);
+                showSuccessModal(formatHour(selectedSlot.startHour), formatHour(endHour), duration, selectedSlot.date);
                 closeModal();
                 renderSchedule();
 
