@@ -1395,7 +1395,7 @@
                     </div>
                     <h1>Ty Rigley</h1>
                     <p class="tagline">Personal Profile</p>
-                    <p style="font-size: 0.7rem; color: #32cd32; margin-top: 8px;">v1.3.0</p>
+                    <p style="font-size: 0.7rem; color: #32cd32; margin-top: 8px;">v1.4.0</p>
                 </div>
 
                 <!-- Photo Lightbox -->
@@ -2033,6 +2033,31 @@
                 } catch (emailError) {
                     console.error('Email notification failed:', emailError);
                     // Don't block the booking if email fails
+                }
+
+                // Send SMS notification to Ty
+                try {
+                    const dateObj = new Date(selectedSlot.date);
+                    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                    const smsDate = `${dayNames[dateObj.getDay()]} ${months[dateObj.getMonth()]} ${dateObj.getDate()}`;
+
+                    await fetch('https://tyrigley-notifications-1200.twil.io/send-booking-sms', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            bookerName: name,
+                            bookerPhone: phone,
+                            date: smsDate,
+                            startTime: formatHour(selectedSlot.startHour),
+                            endTime: formatHour(endHour),
+                            duration: duration
+                        })
+                    });
+                    console.log('SMS notification sent');
+                } catch (smsError) {
+                    console.error('SMS notification failed:', smsError);
+                    // Don't block the booking if SMS fails
                 }
 
                 showSuccessModal(formatHour(selectedSlot.startHour), formatHour(endHour), duration, selectedSlot.date);
