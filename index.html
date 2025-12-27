@@ -1395,7 +1395,7 @@
                     </div>
                     <h1>Ty Rigley</h1>
                     <p class="tagline">Personal Profile</p>
-                    <p style="font-size: 0.7rem; color: #32cd32; margin-top: 8px;">v1.5.0</p>
+                    <p style="font-size: 0.7rem; color: #32cd32; margin-top: 8px;">v1.6.0</p>
                     <p style="font-size: 0.6rem; color: var(--secondary); margin-top: 4px;">Built with: Firebase • Twilio • Claude • Claude-Agents • Proxmox</p>
                 </div>
 
@@ -1407,11 +1407,14 @@
 
                 <!-- Contact Info -->
                 <div class="section">
-                    <h2 class="section-title">
-                        <span class="icon">&#128222;</span>
-                        Contact Information
+                    <h2 class="section-title" style="cursor: pointer; justify-content: space-between;" onclick="toggleSection('contactSection')">
+                        <span style="display: flex; align-items: center; gap: 10px;">
+                            <span class="icon">&#128222;</span>
+                            Contact Information
+                        </span>
+                        <span id="contactToggle" style="font-size: 1.2rem; transition: transform 0.3s;">▶</span>
                     </h2>
-                    <div class="contact-info visible">
+                    <div class="contact-info" id="contactSection" style="display: none;">
                     <div class="contact-item">
                         <div class="contact-icon">&#128222;</div>
                         <div>
@@ -1453,11 +1456,14 @@
 
             <!-- Medical & Emergency Info -->
             <div class="section medical">
-                <h2 class="section-title">
-                    <span class="icon" style="background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);">&#128153;</span>
-                    Medical & Emergency Information
+                <h2 class="section-title" style="cursor: pointer; justify-content: space-between;" onclick="toggleSection('medicalSection')">
+                    <span style="display: flex; align-items: center; gap: 10px;">
+                        <span class="icon" style="background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);">&#128153;</span>
+                        Medical & Emergency Information
+                    </span>
+                    <span id="medicalToggle" style="font-size: 1.2rem; transition: transform 0.3s;">▶</span>
                 </h2>
-                <div class="info-grid">
+                <div class="info-grid" id="medicalSection" style="display: none;">
                     <div class="info-card blood-type">
                         <div class="blood-icon">🩸</div>
                         <h4>Blood Type</h4>
@@ -1668,6 +1674,23 @@
 
         // Run countdown on load
         updateBirthdayCountdown();
+
+        // ============================================
+        // SECTION TOGGLE
+        // ============================================
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            const toggleId = sectionId.replace('Section', 'Toggle');
+            const toggle = document.getElementById(toggleId);
+
+            if (section.style.display === 'none') {
+                section.style.display = sectionId === 'contactSection' ? 'block' : 'grid';
+                toggle.style.transform = 'rotate(90deg)';
+            } else {
+                section.style.display = 'none';
+                toggle.style.transform = 'rotate(0deg)';
+            }
+        }
 
         // EmailJS Configuration
         const EMAILJS_CONFIG = {
