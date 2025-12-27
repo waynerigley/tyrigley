@@ -1344,6 +1344,10 @@
                             <label>Your Name</label>
                             <input type="text" id="bookerName" required placeholder="Enter your name">
                         </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" id="bookerPhone" required placeholder="Enter your phone number">
+                        </div>
                         <button type="submit" class="btn btn-primary btn-full">Confirm Booking</button>
                     </form>
                 </div>
@@ -1672,6 +1676,7 @@
 
             const endHour = parseInt(document.getElementById('endTimeSelect').value);
             const name = document.getElementById('bookerName').value;
+            const phone = document.getElementById('bookerPhone').value;
 
             const hoursToBook = [];
             for (let h = selectedSlot.startHour; h < endHour; h++) {
@@ -1704,6 +1709,7 @@
                         status: 'booked',
                         bookingId: bookingId,
                         bookedBy: name,
+                        bookerPhone: phone,
                         bookedAt: new Date().toISOString()
                     });
                 }
@@ -1724,7 +1730,8 @@
                         start_time: formatHour(selectedSlot.startHour),
                         end_time: formatHour(endHour),
                         duration: duration,
-                        booker_name: name
+                        booker_name: name,
+                        booker_phone: phone
                     });
                     console.log('Email notification sent');
                 } catch (emailError) {

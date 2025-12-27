@@ -1272,15 +1272,14 @@
                     if (typeof data.bookedBy === 'string') {
                         detailsHtml = `
                             <p><strong>Name:</strong> ${data.bookedBy}</p>
+                            <p><strong>Phone:</strong> ${data.bookerPhone || 'N/A'}</p>
                             <p><strong>Booked:</strong> ${data.bookedAt ? new Date(data.bookedAt).toLocaleString() : 'N/A'}</p>
                         `;
                     } else {
                         const booker = data.bookedBy || {};
                         detailsHtml = `
                             <p><strong>Name:</strong> ${booker.name || 'N/A'}</p>
-                            <p><strong>Email:</strong> ${booker.email || 'N/A'}</p>
-                            <p><strong>Phone:</strong> ${booker.phone || 'N/A'}</p>
-                            <p><strong>Notes:</strong> ${booker.notes || 'None'}</p>
+                            <p><strong>Phone:</strong> ${booker.phone || data.bookerPhone || 'N/A'}</p>
                             <p><strong>Booked:</strong> ${data.bookedAt ? new Date(data.bookedAt).toLocaleString() : 'N/A'}</p>
                         `;
                     }
