@@ -938,6 +938,36 @@
         }
 
         /* Full Page Login Overlay */
+        .section-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            border-radius: 50%;
+            color: white;
+            font-size: 0.9rem;
+            animation: pulse 2s infinite;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .section-toggle:hover {
+            background: var(--accent-dark);
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+            }
+        }
+
         .theme-toggle {
             position: fixed;
             top: 20px;
@@ -1395,7 +1425,7 @@
                     </div>
                     <h1>Ty Rigley</h1>
                     <p class="tagline">Personal Profile</p>
-                    <p style="font-size: 0.7rem; color: #32cd32; margin-top: 8px;">v1.6.0</p>
+                    <p style="font-size: 0.7rem; color: #32cd32; margin-top: 8px;">v1.6.1</p>
                     <p style="font-size: 0.6rem; color: var(--secondary); margin-top: 4px;">Built with: Firebase • Twilio • Claude • Claude-Agents • Proxmox</p>
                 </div>
 
@@ -1412,7 +1442,7 @@
                             <span class="icon">&#128222;</span>
                             Contact Information
                         </span>
-                        <span id="contactToggle" style="font-size: 1.2rem; transition: transform 0.3s;">▶</span>
+                        <span id="contactToggle" class="section-toggle">▶</span>
                     </h2>
                     <div class="contact-info" id="contactSection" style="display: none;">
                     <div class="contact-item">
@@ -1461,7 +1491,7 @@
                         <span class="icon" style="background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);">&#128153;</span>
                         Medical & Emergency Information
                     </span>
-                    <span id="medicalToggle" style="font-size: 1.2rem; transition: transform 0.3s;">▶</span>
+                    <span id="medicalToggle" class="section-toggle">▶</span>
                 </h2>
                 <div class="info-grid" id="medicalSection" style="display: none;">
                     <div class="info-card blood-type">
