@@ -1650,8 +1650,20 @@
         // CONFIGURATION
         // ============================================
         const CONFIG = {
-            password: 'tyrigleyworking',
+            // SHA-256 hash of password (not plaintext)
+            passwordHash: '87caa7a4e9f65f78f173d44c4a09b5c9af32200862183e67c5eb5e46019adb6c',
         };
+
+        // ============================================
+        // PASSWORD HASHING
+        // ============================================
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
 
         // ============================================
         // THEME TOGGLE
@@ -1772,13 +1784,14 @@
         // ============================================
         // PASSWORD PROTECTION - Full Page
         // ============================================
-        function unlockPage() {
+        async function unlockPage() {
             const input = document.getElementById('passwordInput');
             const error = document.getElementById('errorMessage');
             const loginOverlay = document.getElementById('loginOverlay');
             const mainContent = document.getElementById('mainContent');
 
-            if (input.value === CONFIG.password) {
+            const inputHash = await hashPassword(input.value);
+            if (inputHash === CONFIG.passwordHash) {
                 loginOverlay.classList.add('hidden');
                 mainContent.classList.add('visible');
                 error.style.display = 'none';

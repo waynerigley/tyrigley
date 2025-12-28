@@ -993,7 +993,19 @@
         // ============================================
         // CONFIGURATION
         // ============================================
-        const ADMIN_PASSWORD = 'tyrigley!!@';
+        // SHA-256 hash of admin password (not plaintext)
+        const ADMIN_PASSWORD_HASH = '452c736b21172f83c864420e9cfa6414b2e958bc74d3fa2fe1f83dc52e00ff64';
+
+        // ============================================
+        // PASSWORD HASHING
+        // ============================================
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
 
         // Firebase Configuration
         const firebaseConfig = {
@@ -1034,11 +1046,12 @@
         // ============================================
         // LOGIN
         // ============================================
-        function unlockPage() {
+        async function unlockPage() {
             const input = document.getElementById('passwordInput');
             const error = document.getElementById('errorMessage');
 
-            if (input.value === ADMIN_PASSWORD) {
+            const inputHash = await hashPassword(input.value);
+            if (inputHash === ADMIN_PASSWORD_HASH) {
                 document.getElementById('loginOverlay').classList.add('hidden');
                 document.getElementById('mainContent').classList.add('visible');
                 renderSchedule();
